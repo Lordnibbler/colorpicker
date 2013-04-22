@@ -10,6 +10,7 @@ Light_Scene
   integer :position
 
 # sequence that is associated with multiple colors which fading in and out at different durations
+# can be reused through a new entry in join table Light_Scene
 Light
   belong_to :collection
   has_many  :color, :through => :light_colors
