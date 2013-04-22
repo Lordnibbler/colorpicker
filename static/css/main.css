@@ -14,12 +14,12 @@ a {
 
 #swatches {
   position: fixed;
-  top: 0; 
+  top: 0;
   bottom: 0;
-  left: 0; 
+  left: 0;
   width: 100%;
   margin: 0; padding: 0;
-  
+
   overflow-y: hidden;
   background: black;
   list-style: none;
@@ -44,7 +44,7 @@ a {
   -ms-transform: translate3d(-50%, -50%, 0);
   -o-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
-  
+
   background: rgba(0, 0, 0, .5);
   color: white;
   text-align: center;
@@ -110,86 +110,4 @@ a {
 
 .btn:hover {
   color: white;
-}
-
-/** Help panel */
-#help-box {
-  position: absolute;
-  z-index: 100;
-
-  top: 100%;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  padding-bottom: 20px;
-  
-  background: rgba(0, 0, 0, .85);
-  color: #fff;
-}
-
-#help-box.open {
-  -webkit-transform: translate3d(0, -100%, 0);
-  -moz-transform: translate3d(0, -100%, 0);
-  -ms-transform: translate3d(0, -100%, 0);
-  -o-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-}
-
-#open-help {
-  position: absolute;
-  bottom: 100%;
-  left: 20px;
-  background: rgba(0, 0, 0, .85);
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-
-#help-box h1 {
-  font-size: 18px;
-  line-height: 60px;
-  height: 60px;
-  margin: 0; padding: 0;
-}
-
-#help-box ul {
-  list-style: none;
-  margin: 0; padding: 0;
-}
-
-#help-box li {
-  display: inline-block;
-  text-align: center;
-  height: 140px;
-  width: 150px;
-  margin: 0 20px;
-  vertical-align: top;
-}
-
-#help-box .social {
-  margin-bottom: 30px;
-}
-
-/* Email form */
-#mc_embed_signup {
-  padding: 0 10px;
-  line-height: 2em;
-}
-
-#mc_embed_signup form {
-  text-align: center;
-}
-
-#mc_embed_signup input {
-  font-family: 'Lato', sans-serif;
-  background: #fff;
-  outline: none;
-  border: 1px solid #eee;
-  border-radius: 3px;
-  padding: 10px;
-}
-
-#mc_embed_signup input[type="submit"] {
-  color: #fff;
-  background: #C9695E;
-  border: 1px solid #C9695E;
 }
