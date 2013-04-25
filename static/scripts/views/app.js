@@ -35,7 +35,7 @@ $(function() {
           .scrollTop(500);
       }
 
-      $(window).resize(_.bind(this.layout, this));
+      // $(window).resize(_.bind(this.layout, this));
     },
 
     render: function() {

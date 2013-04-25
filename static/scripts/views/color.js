@@ -4,8 +4,9 @@ $(function() {
   "use strict";
 
   app.ColorView = Backbone.View.extend({
-    
+
     tagName: "li",
+    // className: "color",
 
     template: _.template( $("#template-color").html() ),
 

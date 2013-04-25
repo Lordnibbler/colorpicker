@@ -6,6 +6,7 @@ $(function() {
 
   // bind to the jquery-ui-touch-punch resizable elements
   $('ul#colors li').resizable({
-    // handles: 'e'
+    handles: 'e',
+    grid: 25
   });
 });
