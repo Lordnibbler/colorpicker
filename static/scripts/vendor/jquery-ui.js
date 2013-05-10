@@ -2296,7 +2296,6 @@ $.widget("ui.resizable", $.ui.mouse, {
 		stop: null
 	},
 	_create: function() {
-
 		var n, i, handle, axis, hname,
 			that = this,
 			o = this.options;
@@ -2510,7 +2509,6 @@ $.widget("ui.resizable", $.ui.mouse, {
 	},
 
 	_mouseStart: function(event) {
-
 		var curleft, curtop, cursor,
 			o = this.options,
 			iniPos = this.element.position(),
@@ -2556,7 +2554,6 @@ $.widget("ui.resizable", $.ui.mouse, {
 	},
 
 	_mouseDrag: function(event) {
-
 		//Increase performance, avoid regex
 		var data,
 			el = this.helper, props = {},
@@ -3145,6 +3142,12 @@ $.ui.plugin.add("resizable", "alsoResizeReverse", {
 	},
 
 	resize: function (event, ui) {
+		// this == element you are dragging/resizing
+		// console.log(this);
+		// console.log($(this).next()[0]);
+		// $(this).next().each(function() {
+		// 	console.log(this);
+		// });
 		var that = $(this).data("ui-resizable"),
 			o = that.options,
 			os = that.originalSize,
@@ -3155,7 +3158,12 @@ $.ui.plugin.add("resizable", "alsoResizeReverse", {
 			},
 
 			_alsoResizeReverse = function (exp, c) {
+				// exp == element to be ALSO resized
+				console.log(exp);
+				// console.log(c);
 				$(exp).each(function() {
+					// console.log(this);
+					// console.log($(this).next());
 					var el = $(this), start = $(this).data("ui-resizable-alsoresize-reverse"), style = {},
 						css = c && c.length ? c : el.parents(ui.originalElement[0]).length ? ["width", "height"] : ["width", "height", "top", "left"];
 

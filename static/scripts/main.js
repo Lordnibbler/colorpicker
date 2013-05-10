@@ -21,7 +21,24 @@ $(function() {
   // });
 
   $("#colors li").resizable({
-    alsoResizeReverse: $("li#edit")
+    // this expects a string, not a jquery selector
+    // might want to use resize method below to add a css class of "next" to $(this).next()
+    // then pass alsoResizeReverse: ".next"
+    // also need to remove css class of "next" when resize finishes
+    // alsoResizeReverse: $("#edit"),
+    // alsoResizeReverse: $(this).next(),
+    alsoResize:$("#colors li").next(),
+    handles: 'e',
+    grid: 25,
+    // resize: function(event, ui) {
+      // console.log($(this).next()[0]);
+      // $(this).next()[0].addClass("resizeMe");
+      // var element_id = '#' + $(this).next();
+      // console.log(element_id);
+      // console.log($(this).next()[0])
+    // },
+    // alsoResizeReverse: $("li#edit"),
+    // alsoResizeReverse: '.resizeMe',
   });
 
 // $('#colors li').resizable({

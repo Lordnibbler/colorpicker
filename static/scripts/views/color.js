@@ -7,6 +7,7 @@ $(function() {
 
     tagName: "li",
     // className: "color",
+    // id: Math.random().toString(36).substring(7),
 
     template: _.template( $("#template-color").html() ),
 

@@ -64,7 +64,7 @@ $(function() {
 
     addOne: function(color) {
       var view = new app.ColorView({model: color});
-      this.$("#colors").append(view.render().el);
+      this.$("#colors").prepend(view.render().el);
 
       view.$el.css({
         left: this.$("#edit").css("left"),
