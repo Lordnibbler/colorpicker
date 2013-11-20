@@ -2,8 +2,7 @@ require 'sinatra'
 require 'redis'
 
 get '/' do
-  # 'Hello world!'
-  erb :live
+  File.read(File.join('public', 'live.html'))
 end
 
 def redis_connect
