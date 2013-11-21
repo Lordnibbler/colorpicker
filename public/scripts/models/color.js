@@ -34,7 +34,8 @@ $(function() {
       return result ? {
           r: String("000" + parseInt(result[1], 16)).slice(-3),
           g: String("000" + parseInt(result[2], 16)).slice(-3),
-          b: String("000" + parseInt(result[3], 16)).slice(-3)
+          b: String("000" + parseInt(result[3], 16)).slice(-3),
+          a: "000"
       } : null;
     }
   });

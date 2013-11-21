@@ -61,7 +61,7 @@ $(function() {
     colorsToRgbString: function() {
       var rgbColors = "";
       app.Colors.each(function(color){
-        rgbColors += color.rgb().r + color.rgb().g + color.rgb().b;
+        rgbColors += color.rgb().r + ',' + color.rgb().g + ',' + color.rgb().b + ',' + color.rgb().a + '\n';
       });
       return rgbColors;
     }

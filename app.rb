@@ -12,14 +12,14 @@ class App < Sinatra::Base
   end
 
   get '/api/redis_get_colors' do
-    puts "live_colors are set to: #{@@redis.get('live_colors')}"
+    # puts "get live_colors: #{@@redis.get('live_colors')}"
     @@redis.get('live_colors')
   end
 
   post '/api/redis_set_colors' do
-    puts params
+    # puts params
     @@redis.set('live_colors', params["colors"])
-    puts "key live_colors now set as #{@@redis.get('live_colors')}"
+    # puts "set live_colors: #{@@redis.get('live_colors')}"
   end
 
   # extend Sinatra's .run method
