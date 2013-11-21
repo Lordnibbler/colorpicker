@@ -9,8 +9,8 @@ class App < Sinatra::Base
   end
 
   get '/api/redis_get_colors' do
+    puts "live_colors are set to: #{@@redis.get('live_colors')}"
     @@redis.get('live_colors')
-    puts @@redis.get('live_colors')
   end
 
   post '/api/redis_set_colors' do

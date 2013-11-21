@@ -43,7 +43,11 @@ $(function() {
     },
 
     pushColorStateToApi: function() {
-      var rgbColors = null
+      var rgbColors = "";
+      app.Colors.each(function(color){
+        rgbColors += color.rgb().r + color.rgb().g + color.rgb().b;
+      });
+      console.log(rgbColors);
       $.ajax({
         url: "/api/redis_set_colors",
         type: "post",
@@ -56,8 +60,16 @@ $(function() {
         error: function(jqXHR, textStatus, errorThrown) {
 
         }
-      })
+      });
     },
+
+    colorsToRgbString: function(colors) {
+      var rgbColors = null;
+      _.each(colors, function(color) {
+        app.Colors.addFromHex("#" + color);
+      });
+
+    }
   });
 
   app.Router = new ColorRouter();
