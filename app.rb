@@ -2,7 +2,10 @@ require 'sinatra'
 require 'redis'
 
 class App < Sinatra::Base
-  @@redis = Redis.new
+  # @@redis = Redis.new
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:e8b1d75b327d80eb16903a8594d83864@tarpon.redistogo.com:10162/'
+  uri = URI.parse(ENV["REDISTOGO_URL"])
+  @@redis = Redis.new(host: uri.host, port: uri.port, password: uri.password)
 
   get '/' do
     File.read(File.join('public', 'live.html'))
