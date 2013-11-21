@@ -9,26 +9,19 @@ class App < Sinatra::Base
   end
 
   get '/api/redis_get_colors' do
-    redis_get_colors
+    @@redis.get('live_colors')
+    puts @@redis.get('live_colors')
   end
 
   post '/api/redis_set_colors' do
-    redis_set_colors
-  end
-
-  # extend Sinatra's .run method
-  def self.run!
-    super
-  end
-
-  def redis_set_colors
     puts params
     @@redis.set('live_colors', params["colors"])
     puts "key live_colors now set as #{@@redis.get('live_colors')}"
   end
 
-  def redis_get_colors
-    @@redis.get('live_colors')
+  # extend Sinatra's .run method
+  def self.run!
+    super
   end
 
   # alternatively, run rackup -p 4567 in terminal

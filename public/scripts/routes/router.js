@@ -43,11 +43,12 @@ $(function() {
     },
 
     pushColorStateToApi: function() {
+      var rgbColors = null
       $.ajax({
         url: "/api/redis_set_colors",
         type: "post",
         data: {
-          colors: "foo"
+          colors: rgbColors
         },
         success: function(data, textStatus, jqXHR) {
 

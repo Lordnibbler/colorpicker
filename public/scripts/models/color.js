@@ -27,8 +27,16 @@ $(function() {
 
     hexCss: function() {
       return this.getColor().hexString();
-    }
+    },
 
+    rgb: function() {
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(this.hexCss());
+      return result ? {
+          r: String("000" + parseInt(result[1], 16)).slice(-3),
+          g: String("000" + parseInt(result[2], 16)).slice(-3),
+          b: String("000" + parseInt(result[3], 16)).slice(-3)
+      } : null;
+    }
   });
 
 });
