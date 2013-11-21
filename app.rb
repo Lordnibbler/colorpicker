@@ -2,6 +2,8 @@ require 'sinatra'
 require 'redis'
 
 class App < Sinatra::Base
+  @@redis = Redis.new
+
   get '/' do
     File.read(File.join('public', 'live.html'))
   end
@@ -16,21 +18,15 @@ class App < Sinatra::Base
 
   # extend Sinatra's .run method
   def self.run!
-    self.redis_connect
     super
   end
 
-  def redis_connect
-    @redis = Redis.new
-    puts "redis connected successfully" unless @redis.nil?
-  end
-
   def redis_set_colors
-    @redis.set('live_colors', 'test')
+    @@redis.set('live_colors', 'test')
   end
 
   def redis_get_colors
-    @redis.get('live_colors')
+    @@redis.get('live_colors')
   end
 
   # alternatively, run rackup -p 4567 in terminal
