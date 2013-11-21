@@ -35,8 +35,28 @@ $(function() {
         return memo + color.hexCss().substr(1) + ',';
       }, "");
 
+      // update redis & API
+      this.pushColorStateToApi();
+
+      // append to URL
       this.navigate(hash, {trigger: false, replace: true});
-    }
+    },
+
+    pushColorStateToApi: function() {
+      $.ajax({
+        url: "/api/redis_set_colors",
+        type: "post",
+        data: {
+          colors: "foo"
+        },
+        success: function(data, textStatus, jqXHR) {
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+
+        }
+      })
+    },
   });
 
   app.Router = new ColorRouter();

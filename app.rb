@@ -22,7 +22,9 @@ class App < Sinatra::Base
   end
 
   def redis_set_colors
-    @@redis.set('live_colors', 'test')
+    puts params
+    @@redis.set('live_colors', params["colors"])
+    puts "key live_colors now set as #{@@redis.get('live_colors')}"
   end
 
   def redis_get_colors
