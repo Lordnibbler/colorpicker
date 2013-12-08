@@ -119,6 +119,10 @@ $(function() {
         h: hue,
         l: lit
       });
+
+      window.dapp.socket.emit('colorChanged', {
+        color: "zomg red"
+      });
     },
 
     scroll: function(event) {
