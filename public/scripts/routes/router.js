@@ -42,6 +42,10 @@ $(function() {
       this.navigate(hash, {trigger: false, replace: true});
     },
 
+    /**
+     * POSTs via AJAX to our redis API endpoint
+     * to update current colors in key/value store
+     */
     pushColorStateToApi: function() {
       $.ajax({
         url: "/api/redis_set_colors",
@@ -58,6 +62,9 @@ $(function() {
       });
     },
 
+    /**
+     * Converts colors to Halo's `r,g,b,a\n` format
+     */
     colorsToRgbString: function() {
       var rgbColors = "";
       app.Colors.each(function(color){
