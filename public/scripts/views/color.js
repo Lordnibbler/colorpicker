@@ -4,7 +4,7 @@ $(function() {
   "use strict";
 
   app.ColorView = Backbone.View.extend({
-    
+
     tagName: "li",
 
     template: _.template( $("#template-color").html() ),
@@ -14,19 +14,19 @@ $(function() {
     },
 
     initialize: function() {
-      this.model.on('change', this.render, this);
+      // this.model.on('change', this.render, this);
       this.model.on('destroy', this.setupRemove, this);
     },
 
     render: function() {
-      this.$el.css({
-        backgroundColor: this.model.hslCss()
-      }).html(this.template({
-        colorHex: this.model.hexCss(),
-        colorHsl: this.model.hslCss(),
-      }));
+      // this.$el.css({
+      //   backgroundColor: this.model.hslCss()
+      // }).html(this.template({
+      //   colorHex: this.model.hexCss(),
+      //   colorHsl: this.model.hslCss(),
+      // }));
 
-      return this;
+      // return this;
     },
 
     destroy: function(event) {

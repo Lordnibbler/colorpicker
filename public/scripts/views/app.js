@@ -22,14 +22,16 @@ $(function() {
       this.editModel.on("change", this.render, this);
 
       if(window.Touch) {
-        this.$("#edit").bind("touchstart", _.bind(this.touchstart, this))
-          .bind("touchmove", _.bind(this.touchmove, this))
-          .bind("touchend", _.bind(this.touchend, this))
-          .bind("gesturestart", _.bind(this.gesturestart, this))
+        this.$("#edit")
+          .bind("touchstart",    _.bind(this.touchstart, this))
+          .bind("touchmove",     _.bind(this.touchmove, this))
+          .bind("touchend",      _.bind(this.touchend, this))
+          .bind("gesturestart",  _.bind(this.gesturestart, this))
           .bind("gesturechange", _.bind(this.gesturechange, this));
 
       } else {
-        this.$("#constraints").mousemove(_.bind(this.mousemove, this))
+        this.$("#constraints")
+          .mousemove(_.bind(this.mousemove, this))
           .scroll(_.bind(this.scroll, this))
           .click(_.bind(this.grabColor, this))
           .scrollTop(500);
@@ -64,7 +66,7 @@ $(function() {
 
     addOne: function(color) {
       var view = new app.ColorView({model: color});
-      this.$("#colors").append(view.render().el);
+      // this.$("#colors").append(view.render().el);
 
       view.$el.css({
         left: this.$("#edit").css("left"),
@@ -101,6 +103,34 @@ $(function() {
       });
     },
 
+    removeLastColor: function(event) {
+      app.Colors.pop();
+    },
+
+    pushColorStateToApi: function() {
+      $.ajax({
+        url: "/api/redis_set_colors",
+        type: "post",
+        data: {
+          colors: this.colorsToRgbString()
+        },
+        success: function(data, textStatus, jqXHR) {
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+
+        }
+      });
+    },
+
+    colorsToRgbString: function() {
+      var rgbColors = "";
+      app.Colors.each(function(color){
+        rgbColors += color.rgb().r + ',' + color.rgb().g + ',' + color.rgb().b + ',' + color.rgb().a + '\n';
+      });
+      return rgbColors + rgbColors + rgbColors + rgbColors;
+    },
+
     move: function(px, py) {
       var editEl = this.$("#edit"),
           w = editEl.width(),
@@ -119,6 +149,15 @@ $(function() {
         h: hue,
         l: lit
       });
+
+      // POST to our API with current color
+      this.grabColor();
+      this.pushColorStateToApi();
+      app.Colors.removeLast();
+
+      console.log(this.editModel.get("h"));
+      console.log(this.editModel.get("s"));
+      console.log(this.editModel.get("l"));
     },
 
     scroll: function(event) {

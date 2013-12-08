@@ -9,8 +9,8 @@ $(function() {
     },
 
     initialize: function(ops) {
-      app.Colors.on("add", this.pushColorState, this);
-      app.Colors.on("remove", this.pushColorState, this);
+      // app.Colors.on("add", this.pushColorState, this);
+      // app.Colors.on("remove", this.pushColorState, this);
     },
 
     setColors: function(param) {
