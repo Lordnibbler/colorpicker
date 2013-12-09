@@ -1,6 +1,10 @@
 require 'sinatra'
 require 'redis'
 
+configure :production do
+  require 'newrelic_rpm'
+end
+
 class App < Sinatra::Base
   # @@redis = Redis.new
   ENV["REDISTOGO_URL"] = 'redis://redistogo:e8b1d75b327d80eb16903a8594d83864@tarpon.redistogo.com:10162/'
