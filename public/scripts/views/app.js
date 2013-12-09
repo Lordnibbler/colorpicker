@@ -103,6 +103,7 @@ $(function() {
 
     /**
      * Converts colors to Halo's `r,g,b,a\n` format
+     * Sets all lights to same color for live-preview
      */
     colorToRgbString: function(color) {
       var rgbColors = "";
@@ -131,9 +132,13 @@ $(function() {
         l: lit
       });
 
+      this.colorChanged(this.editModel);
+    },
+
+    colorChanged: function(color) {
       // send our Node.js app the current live color data
       window.dapp.socket.emit('colorChanged', {
-        color: this.colorToRgbString(this.editModel)
+        color: this.colorToRgbString(color)
       });
     },
 

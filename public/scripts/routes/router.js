@@ -35,31 +35,25 @@ $(function() {
         return memo + color.hexCss().substr(1) + ',';
       }, "");
 
-      // update redis & API
-      this.pushColorStateToApi();
+      // emit `colorSet` event to node.js server
+      this.colorSet();
 
       // append to URL
       this.navigate(hash, {trigger: false, replace: true});
     },
 
+
     /**
-     * POSTs via AJAX to our redis API endpoint
-     * to update current colors in key/value store
+     * Emits a `colorSet` event to our Node.js server
+     * Sends all 4 current colors, in Halo `r,g,b,a\n` format
      */
-    pushColorStateToApi: function() {
-      $.ajax({
-        url: "/api/redis_set_colors",
-        type: "post",
-        data: {
-          colors: this.colorsToRgbString()
-        },
-        success: function(data, textStatus, jqXHR) {
-
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-
-        }
-      });
+    colorSet: function() {
+      // send our Node.js app the current live color data
+      if(window.dapp.socket) {
+        window.dapp.socket.emit('colorSet', {
+          color: this.colorsToRgbString()
+        });
+      }
     },
 
     /**
