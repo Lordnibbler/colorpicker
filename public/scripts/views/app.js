@@ -101,10 +101,21 @@ $(function() {
       });
     },
 
+    /**
+     * Converts colors to Halo's `r,g,b,a\n` format
+     */
+    colorToRgbString: function(color) {
+      var rgbColors = "";
+      rgbColors += color.rgb().r + ',' + color.rgb().g + ',' + color.rgb().b + ',' + color.rgb().a + '\n';
+
+      // TODO: make this a prototype function called .repeat()
+      return rgbColors + rgbColors + rgbColors + rgbColors;
+    },
+
     move: function(px, py) {
       var editEl = this.$("#edit"),
-          w = editEl.width(),
-          h = editEl.height(),
+          w      = editEl.width(),
+          h      = editEl.height(),
           x, y, offset, hue, lit, col;
 
       offset = editEl.offset();
@@ -120,8 +131,9 @@ $(function() {
         l: lit
       });
 
+      // send our Node.js app the current live color data
       window.dapp.socket.emit('colorChanged', {
-        color: "zomg red"
+        color: this.colorToRgbString(this.editModel)
       });
     },
 
