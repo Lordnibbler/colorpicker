@@ -4,28 +4,29 @@ $(function() {
   "use strict";
 
   app.SwatchAppView = Backbone.View.extend({
-    el: "#swatches",
+    el: "#appframe",
 
     isTouchMove: false,
     startSaturation: 0,
 
     events: {
-      "click #open-help": "togglehelp"
+      // "click #header-tab": "toggleheader"
     },
 
     initialize: function() {
-      app.Colors.on("add", this.addOne, this);
-      app.Colors.on("reset", this.addAll, this);
+      app.Colors.on("add",    this.addOne, this);
+      app.Colors.on("reset",  this.addAll, this);
       app.Colors.on("remove", this.layout, this);
 
       this.editModel = new app.Color({h: 180, s: 50, l: 50});
       this.editModel.on("change", this.render, this);
 
-      if(window.Touch) {
-        this.$("#edit").bind("touchstart", _.bind(this.touchstart, this))
-          .bind("touchmove", _.bind(this.touchmove, this))
-          .bind("touchend", _.bind(this.touchend, this))
-          .bind("gesturestart", _.bind(this.gesturestart, this))
+      if('ontouchstart' in document.documentElement) {
+        this.$("#edit")
+          .bind("touchstart",    _.bind(this.touchstart,    this))
+          .bind("touchmove",     _.bind(this.touchmove,     this))
+          .bind("touchend",      _.bind(this.touchend,      this))
+          .bind("gesturestart",  _.bind(this.gesturestart,  this))
           .bind("gesturechange", _.bind(this.gesturechange, this));
 
       } else {
@@ -50,7 +51,7 @@ $(function() {
       var w = $(window).width(),
           sliceSize = Math.floor(w / (app.Colors.length + 2));
 
-      this.$('#colors li:not(#edit):not(.destroyed)').each(function(i, el) {
+      this.$('#colors .swatch:not(#edit):not(.destroyed)').each(function(i, el) {
         $(el).css({
           left: i * sliceSize,
           width: sliceSize,
@@ -68,14 +69,12 @@ $(function() {
 
       view.$el.css({
         left: this.$("#edit").css("left"),
-        width: this.$("#edit").css("width"),
-        background: "#fff"
+        width: this.$("#edit").css("width")
       });
 
       // defer the render for a frame
       setTimeout(_.bind(function() {
         view.$el.addClass("animating");
-        view.$el.css("background", view.model.hslCss());
         this.layout();
       }, this), 0);
     },
@@ -89,15 +88,13 @@ $(function() {
       }
     },
 
-    togglehelp: function(event) {
-      this.$("#help-box").toggleClass("open");
+    toggleheader: function(event) {
+      this.$el.toggleClass("show-header");
     },
 
     grabColor: function(event) {
       app.Colors.add({
-        h: this.editModel.get("h"),
-        s: this.editModel.get("s"),
-        l: this.editModel.get("l"),
+        color: new Color(this.editModel.color().rgb())
       });
     },
 
@@ -127,10 +124,8 @@ $(function() {
       hue = Math.floor(x / w * 360),
       lit = Math.floor(y / h * 100);
 
-      this.editModel.set({
-        h: hue,
-        l: lit
-      });
+      this.editModel.color().hue(hue).lightness(lit);
+      this.editModel.trigger("change");
 
       this.colorChanged(this.editModel);
     },
@@ -143,12 +138,10 @@ $(function() {
     },
 
     scroll: function(event) {
-      var offset = this.$("#constraints").scrollTop() / 10;
+      var col, offset = this.$("#constraints").scrollTop() / 10;
       offset = Math.max(0, Math.min(100, offset));
-
-      this.editModel.set({
-        s: offset
-      });
+      this.editModel.color().saturation(offset);
+      this.editModel.trigger("change");
     },
 
     mousemove: function(event) {
@@ -180,9 +173,8 @@ $(function() {
 
       if(event.originalEvent.scale) {
         var offset = Math.max(0, Math.min(100, this.startSaturation * event.originalEvent.scale));
-        this.editModel.set({
-          s: offset
-        });
+        this.editModel.color().saturation(offset);
+        this.editModel.trigger("change");
       }
     }
 
